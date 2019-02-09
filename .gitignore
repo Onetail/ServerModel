@@ -1,0 +1,10 @@
+
+# mac os file 
+
+.DS_Store
+
+# some file for local test
+
+*.yml
+
+node_modules/

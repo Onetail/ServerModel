@@ -1,0 +1,238 @@
+.header{
+    font-family:Verdana	;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+    background-color:#603421;
+    /* background-color:#00226F; */
+    font-size:25px;
+    width:100vw;
+    color:white;
+    padding:25px;
+    border-color: black;
+    /* text-align: center; */
+    -webkit-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+    z-index: 1;
+}
+body{
+    margin:0;
+    padding: 0;
+}
+.leftview{
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    -webkit-flex: 1;
+    flex: 1;
+    background-color: rgb(230, 230, 230);
+    /* width:15%; */
+}
+.rightview{
+    display: -webkit-flex;
+    display: flex;
+    background-color: rgb(250, 250, 250);
+    -webkit-flex: 18;
+    flex: 18;
+    /* width: 85%; */
+    /* min-width: 80%; */
+}
+.button{
+    font-family: Microsoft JhengHei, Helvetica, sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+    /* width:80%; */
+    padding: 15%;
+    margin-top: 50%;
+    font-size: 35px;
+    text-align: center;
+    /* background-color:#43AED3; */
+    color:black;
+    cursor: pointer;
+}
+.button:hover{
+    background-color:#603421;
+    color:white;
+}
+.main{
+    height:150vh;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+}
+.contain{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex: 1;
+    flex: 1;
+}
+.item_list{
+    font-family: Microsoft JhengHei, Helvetica, sans-serif;
+    margin-left: 5%;
+    margin-bottom: 1%;
+    margin-right: 1%;
+    margin-top: 2%;
+    /* background-color: pink; */
+    padding: 20px;
+    width: 80%;
+    font-size: 25px;
+    border-bottom: 1px solid;
+}
+.edit_btn{
+    float:right;
+    font-size:30px;
+}
+.delete_btn{
+    float:right;
+    margin-left:5%;
+    font-size:30px;
+}
+.home_btn{
+    position: absolute;;
+    top:20px;
+    right:40px;
+    font-size:40px;
+    color:white;
+    float:right;
+
+}
+.right_leftview{
+    -webkit-flex: 2;
+    flex: 2;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+.right_rightview{
+    position: relative;
+    font-family:Verdana	;
+    -webkit-flex: 1;
+    flex:1;
+    padding:5%;
+    /* margin: 5%; */
+    background-color: #A58578;
+    font-size: 35px;
+
+}
+.typeselect{
+    font-family:Verdana	;
+    margin: 5%;
+    margin-left: 10%;
+    font-size: 50px;
+
+}
+.plus_btn{
+    /* width:80%; */
+    font-size: 40px;
+    text-align: center;
+    /* background-color:#43AED3; */
+    color:black;
+    cursor: pointer;
+    position: fixed;
+    left: 1.7%;
+    bottom:1.7%;
+    
+}
+.form_btn{
+    flex:center;
+    width:30%;
+    font-size:20px;
+    padding:5%;
+    border: 0;
+    color:white;
+    background-color:#603421;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right:10px; 
+
+}
+.form_btn:hover{
+    transform: scale(1.05)
+}.form_btn:hover{
+    transform: scale(1.05)
+}
+.form_info{
+    font-size:15px;
+    height: 30%;
+    width:100%;
+    padding:10px;
+    -webkit-flex:1;
+    flex:5;
+}
+.form_info_group{
+    margin-top:-15%;
+    display: -webkit-flex;
+    display: flex;
+    width:100%;
+    flex-direction: column;
+}
+.form_btn_group{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+-webkit-justify-content: center;
+    justify-content: center;
+    
+}
+.update_text{
+    margin-bottom: 5px;
+    color:#603421;
+    font-size: 30px;
+
+}
+.plus_btn:hover,.edit_btn:hover,.delete_btn:hover{
+    transform: scale(1.05)
+}
+
+
+.dropdown-button {
+    
+    margin: 10px 10px;
+    cursor:pointer;
+    font-size: 15px;    
+    border: none;
+    color: #603421;
+    background-color: #ddd;
+    width:30%;
+    text-align: center;
+}
+.dropdown-button:hover   {
+    background-color: #603421;
+    color:#ddd;
+}
+.dropdown-content {
+    
+    width:10%;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown-button:hover .dropdown-content {
+    display: block;
+}
+.btnbtn{
+    margin: 10px 10px;
+}

@@ -1,0 +1,22 @@
+body{
+    text-align:center;
+    margin: 10px;
+}
+
+.menulist
+{
+    background-color: rgb(67, 176, 223);
+    color: white;
+    padding: 16px;
+    font-size: 32px;
+    cursor: pointer;
+    text-shadow:0px 1px 0px #e1e2ed;
+}
+.menulist:hover , .menulist:focus
+{
+    background-color:#0b348b;
+    -webkit-transition: background-color 1s ease-out;
+    -moz-transition: background-color 1s ease-out;
+    -o-transition: background-color 1s ease-out;
+    transition: background-color 1s ease-out;
+}

@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <title>KWC Studio</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="statics/css/homepage.css">
+    <link rel="stylesheet" type="text/css" href="statics/css/workspage.css">
+    <link rel="shortcut icon" href="statics/favicon.ico"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="home/socket.io/socket.io.js"></script>
+    </head>
+<body>
+    <div>
+        <div class='bg bg-blur'></div>
+        <div id ="main_div" class='main_div'>
+            <div id="UI_design">
+            <div class='title'><b><p>KWC 工作室</p></b></div>
+            <div class='intro'><br/><p>KWC工作室,負責滿足您的軟體需求,歡迎來信詢問.</p></div>
+                <div class='links' id='links'>
+                    <div id='writetxt' style="display:none"></div><div id='collections'>作品一覽</div><div id='contact'><!-- <a href='mailto:tstckwc@icloud.com'> -->聯繫我們<!-- </a> --></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    
+</html>
+<script type="text/javascript">
+    Main_Action = new function()
+    {
+        // Event
+        Control_Event();
+    }
+    //  聯繫
+    function Control_Event()
+    {
+        
+        $("div#contact").click(function()
+        {
+            
+            document.getElementById('writetxt').innerHTML="<textarea id='txtarea' placeholder='請記得附上聯繫方式喔!'></textarea>";
+
+            $('div#collections').fadeOut(50);
+            $('div.intro').fadeOut(50);
+            $('div#contact').fadeOut(50,function()
+                {
+                    $('div#writetxt').fadeIn(50);
+                    $('div#writetxt').animate(
+                    {
+                        height:'30vw',
+                        width:'60vw'
+                    },400,function()
+                    {
+                        var reback = document.createElement('div');
+                        var send = document.createElement('div');
+                        reback.id='reback';
+                        send.id='send';
+                        reback.innerHTML ="<button id='btn_back' class='btnstyle' style='display:none'>返回</button>";
+                        send.innerHTML="<button id='btn_send' class='btnstyle' style='display:none'>傳送 </button>";
+                        $('div#writetxt').after(reback,send);
+                        $('button#btn_send').fadeIn(50);
+                        $('button#btn_back').fadeIn(50);
+                        // 聯繫send
+                        $('button#btn_send').click(function()
+                        {
+                            var socket = io();
+                            // alert($('#txtarea').val());
+                            socket.emit("send",$('#txtarea').val());
+                            socket.on("response",function(msg)
+                            {
+                                if(msg=="OK")
+                                {
+                                    $('#send').fadeOut(300);
+                                    // $('#writetxt').fadeOut(500);
+                                    alert("感謝您的詢問,已收到您的訊息!我們會盡快回復");
+                                    $('#reback').animate(
+                                        {
+                                            left:'250px'
+                                        },1500,function()
+                                    {
+                                        $('#send').remove();
+                                        $('#send').remove();
+                                        $('#reback').remove();
+                                        $('#txtarea').val("");
+                                        $('#writetxt').hide(300);
+                                        $('#writetxt').animate(
+                                        {
+                                        height:'10vw'
+                                        },500);
+                                        $('div#collections').show(400);
+                                        $('div#contact').show(400);
+                                    });
+                                }
+				if(meg=="ERROR")
+				{
+				    alert("Opps!好像出了點狀況,請稍後再試一次,或請聯繫:ultralcc@icloud.com");
+				}
+                            });
+
+                        });
+                        //  返回back
+                        $('button#btn_back').click(function()
+                        {
+                            $('#send').remove();
+                            $('#reback').remove();
+                            $('#txtarea').val("");
+                            $('#writetxt').hide(300);
+                            $('#writetxt').animate(
+                            {
+                                height:'10vw'
+                            },500);
+                            $('div#collections').show(400);
+                            $('div#contact').show(400);
+                            $('div.intro').fadeIn(400);
+                        });
+                        // $('#txtarea').keydown(function(event)
+                        // {
+                        //     if(event.which == 13)
+                        //     {   
+                        //         $('#btn_send').click();
+                        //     }
+                        // });
+
+                    })
+                    
+                });
+            
+            
+
+        });
+
+    }
+</script>
+<script type="text/javascript" src="statics/js/KWCworks.js"></script>
