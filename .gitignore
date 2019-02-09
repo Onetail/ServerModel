@@ -8,3 +8,5 @@
 *.yml
 
 node_modules/
+
+project/*
