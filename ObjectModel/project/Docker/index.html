@@ -1,0 +1,168 @@
+<html>
+<head>
+<style>
+  body{
+    margin:1%;
+  }
+  h2{
+    color: rgb(12, 105, 105);
+  }
+  h5{
+    font-size:18px;
+  }
+  code{
+    font-size:16px;
+    background-color: rgb(209, 208, 208);
+  }
+</style>
+</head>
+<body>
+  <h1 id="this-is-docker-some-command">This is Docker some command</h1>
+<h2 id="-">映像檔</h2>
+<blockquote>
+<p>*取映像檔
+<code>sudo docker pull __(os.version)</code></p>
+<p>*搜尋映像檔
+<code>sudo docker search _(os)</code> </p>
+<p>*執行
+<code>sudo docker run -t -i __(ubuntu:12.04) /bin/bash</code></p>
+<h5 id="-t-docker-">-t 讓docker分配一個虛擬終端到容器的標準輸出上</h5>
+<h5 id="-i-">-i 讓容器的標準輸入保持打開</h5>
+<h5 id="-d-">-d 守護態執行(背景執行)</h5>
+<h5 id="-v-">-v 標記建立一個資料卷並掛載到容器(新增本地目錄到主機)</h5>
+<p>*列出映像檔
+<code>sudo docker images</code> </p>
+<p>*commit上去 (跟git一樣)
+<code>sudo docker commit -m &quot;_&quot;</code> </p>
+<p>*刪除repository 為none的映像檔
+<code>sudo docker images | grep none | awk &#39;{print $3}&#39; | sudo xargs docker rm -f</code></p>
+<p>*刪除全部映像檔
+<code>sudo docker images -q | xargs docker rmi -f</code> </p>
+<p>*清除瑣碎的檔案
+<code>sudo docker system prune</code> </p>
+<p>使用Dockerfile 
+<code>mkdir newfile &amp;&amp; cd newfile</code> 
+<code>touch Dockerfile</code> </p>
+</blockquote>
+<h3 id="dockerfile-">Dockerfile 語法</h3>
+<blockquote>
+<p>一般而言，Docker分為四部分</p>
+<h5 id="-">基底映像檔資訊</h5>
+<h5 id="-">維護者資訊</h5>
+<h5 id="-">映像檔操作指令</h5>
+<h5 id="-">容器啟動時執行指令</h5>
+</blockquote>
+<hr>
+<blockquote>
+<blockquote>
+<p>使用 <code>#</code> 來註釋</p>
+<p><code>FROM</code> 指令告訴Docker使用哪個映像檔</p>
+<p><code>MAINTAINER &lt;name&gt;</code> 維護者信息</p>
+<p><code>RUN</code> 開頭的指令會在建立中執行(映像檔執行)</p>
+<p><code>ADD</code> 複製local檔到容器中，也可以是URL</p>
+<p><code>EXPOSE</code> 開port</p>
+<p><code>CMD</code> 容器啟動後執行的程序(容器執行)</p>
+<blockquote>
+<p><code>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code> 推薦使用</p>
+</blockquote>
+<p><code>ENV &lt;key&gt; &lt;value&gt;</code> 指定一個環境變數</p>
+<p><code>COPY</code> 複製local檔到容器中</p>
+<p><code>ENTRYPOINT [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code> 指定容器啟動後執行的命令，不會被
+<code>docker run</code> 提供的參數覆蓋</p>
+<h5 id="-dockerfile-entrypoint-">每個Dockerfile 只能有一個ENTRYPOINT，當指令多個，只有最後一個會生效</h5>
+<p><code>VOLUME &lt;address&gt;</code> 建立一個可掛載的掛載點，一般用來存放資料庫和需要保存的資料</p>
+<p><code>USER &lt;name&gt;</code> 指定運行容器的名稱 or UID</p>
+<p><code>WORKDIR &lt;address&gt;</code> 為後續的<code>RUN</code>、<code>CMD</code>、<code>ENTRYPOINT</code>指令指定工作目錄(可相對路徑)</p>
+<p><code>ONBUILD</code> 當此映像檔被其他映像檔當作基底，則RUN這個</p>
+</blockquote>
+<p>建立映像檔
+<code>sudo docker build</code></p>
+<h6 id="-t-tag-">-t <tag> 指定映像檔標籤資訊</h6>
+<p>修改映像檔標籤
+<code>sudo docker tag _(number) _:_(os,version)</code></p>
+<p>上傳映像檔到docker hub
+<code>sudo docker push __(name)</code> </p>
+</blockquote>
+<h3 id="-">存儲與載入</h3>
+<blockquote>
+<p>儲存映像檔到本地
+<code>sudo docker save -o ubuntu_14.04.tar ubuntu:14.04</code></p>
+<p>載入映像檔
+<code>sudo docker load --input ubuntu_14.04.tar</code> 
+or 
+<code>sudo docker load &lt; ubuntu_14.04.tar</code> </p>
+</blockquote>
+<h3 id="-">移除</h3>
+<blockquote>
+<p>移除映像檔 (docker rmi)
+<code>sudo docker rmi __(os)</code> </p>
+<h5 id="-">注意:再刪除映像檔前要先刪除依賴這個映像檔的容器</h5>
+</blockquote>
+<h2 id="-">容器</h2>
+<h5 id="-">獨立的應用，從映像檔中啟動</h5>
+<blockquote>
+<p>查看信息
+<code>ps</code> </p>
+<p>查看容器信息
+<code>sudo docker ps</code> </p>
+<h6 id="-a-">-a 可以查看已終止的容器</h6>
+<p>查看容器IP <code>sudo docker inspect  $(sudo docker ps -q) | grep IPAddress</code></p>
+
+<p>啟動容器
+<code>sudo docker start</code> </p>
+<p>終止容器
+<code>sudo docker stop</code></p>
+<p>重啟容器
+<code>sudo docker restart</code> </p>
+</blockquote>
+<h3 id="-">進入容器(已執行的)</h3>
+<blockquote>
+<p>exec命令(啟動command，對於某些背景執行的容器)
+<code>sudo docker exec -ti __(names) bash</code> </p>
+<p>attach命令
+<code>sudo docker attach __(name)</code> </p>
+</blockquote>
+<h3 id="-">匯出與匯入</h3>
+<blockquote>
+<p>匯出容器
+<code>sudo docker export __(ID) &gt; filename.tar</code> </p>
+<p>匯入容器 (本地端)
+<code>cat filename.tar | sudo docker import - _:_(repository,tag)</code> </p>
+<p>匯入容器 (URL)
+<code>sudo docker import __(url) __(repository)</code> </p>
+</blockquote>
+<h3 id="-">刪除容器</h3>
+<blockquote>
+<p>刪除(docker rm)，容器必須要是終止狀態
+<code>sudo docker rm __(name)</code></p>
+<h5 id="-f-">可以增加<code>-f</code>參數，強制刪除執行中的容器</h5>
+</blockquote>
+<h2 id="-">資料管理</h2>
+<h3 id="-">備份</h3>
+<blockquote>
+<p>利用 <code>--volumes-form</code> 標記來建立一個載入dbdata容器的容器。
+<code>sudo docker run --volumes-form dbdata -v $(pwd):/backup ubuntu tar cvf /backup/backup.tar /dbdata</code></p>
+</blockquote>
+<h1 id="-">倉庫</h1>
+<h2 id="docker-hub">Docker Hub</h2>
+<blockquote>
+<p>登入(需有docker hub註冊)
+<code>sudo docker login</code> </p>
+<p>自動建立</p>
+<blockquote>
+<p>建立並登陸 Docker Hub，以及目標網站；</p>
+<p>在目標網站中連接帳戶到 Docker Hub；</p>
+<p>在 Docker Hub 中 設定一個自動建立；</p>
+<p>選取一個目標網站中的專案（需要含 Dockerfile）和分支；</p>
+<p>指定 Dockerfile 的位置，並提交建立。</p>
+</blockquote>
+</blockquote>
+<h2 id="-">私有倉庫</h2>
+<blockquote>
+<p>先取得官方的registry 映像檔來執行
+<code>sudo docker run -d -p 5000:5000 registry</code> 
+預設情況下，倉庫會被建立在容器的<code>/tmp/registry</code>下</p>
+</blockquote>
+
+</body>
+</html>

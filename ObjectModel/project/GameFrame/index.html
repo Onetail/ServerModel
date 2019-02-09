@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wayne自用</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="assets/css/homepage.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	Main_Activity = new function()
+	{
+		// build ui
+		Control_UI();
+	}
+	function Control_UI()
+	{
+		// create ui
+		var background_frame = document.createElement("div");
+		var top_frame = document.createElement("div");
+		var left_frame = document.createElement("div");
+		var center_frame = document.createElement('div');
+		var right_frame = document.createElement("div");
+		var bottom_frame = document.createElement("div");
+
+		// set id
+		background_frame.id = "background_frame";
+		top_frame.id = "top_frame";	
+		left_frame.id= "left_frame";
+		center_frame.id="center_frame";
+		right_frame.id = "right_frame";
+		bottom_frame.id = "bottom_frame";
+
+		// append body
+		document.body.appendChild(background_frame);
+		document.body.appendChild(top_frame);
+		document.body.appendChild(left_frame);
+		document.body.appendChild(center_frame);
+		document.body.appendChild(right_frame);
+		document.body.appendChild(bottom_frame);	
+
+		// draw
+		Draw_UI();
+		// event listener
+		Action_Event();
+	}
+	function Draw_UI()
+	{
+		// background
+		document.getElementById("background_frame").innerHTML="<div id='background_frame'></div>"
+
+		//	top_frame
+		document.getElementById('top_frame').innerHTML = "HOME PAGE";
+		
+		// left_frame
+		document.getElementById("left_frame").innerHTML = "<span class='btnstyle' id='btn1'>鍵速</span>";
+
+		// center_frame
+		document.getElementById('center_frame').innerHTML = "<span class='btnstyle' id='btn2'>KKGm</span>";
+		
+		// right_frame
+		// document.getElementById("right_frame").innerHTML = "<span class='btnstyle' id='btn3'>Example</span>";
+
+		// bottom_frame
+		document.getElementById('bottom_frame').innerHTML = "<hr></hr>";
+	}
+	function Action_Event()
+	{
+		var btn_enabled = true;
+		var speed = 200;
+	
+		$('#btn1').click(function()
+			{
+				if(btn_enabled)
+				{
+					btn_enabled=false;
+					$('#btn1').hide(speed,function()
+						{
+							btn_enabled = true;
+							location.assign("keyboard.html");
+						});		
+				
+				}else return;
+				
+			});
+		$('#btn2').click(function()
+		{
+			if(btn_enabled)
+			{
+				btn_enabled = false;
+				$('#btn2').hide(speed,function()
+				{
+					btn_enabled = true;
+					location.assign("KKGame.html");
+				});
+			}else return;
+		});
+		// $('#btn3').click(function()
+		// {
+		// 	if(btn_enabled)
+		// 	{
+		// 		btn_enabled = false;
+		// 		$('#btn3').hide(speed,function()
+		// 		{
+		// 			btn_enabled = true;
+		// 			location.assign("English_study.html");
+		// 		});
+		// 	}
+		// });
+		
+	}
+
+</script>

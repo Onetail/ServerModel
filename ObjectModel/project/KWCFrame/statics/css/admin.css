@@ -1,0 +1,33 @@
+
+.btnstyle
+{
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding-top:8px;
+    cursor: pointer;
+    text-align: center;
+    font-family: Microsoft JhengHei, Helvetica, sans-serif;
+    /*display: inline-block;*/
+    height:70px;
+    width:180px;
+    font-size:30px;
+    color:white;
+    background-color: brown;
+    margin: 20px;
+    opacity: .5;
+    -ms-transform: scale(1); /* IE 9 */
+    -webkit-transform: scale(1); /* Safari */
+    transform: scale(1);
+    -webkit-transition: transform .5s;
+    transition:  transform .5s;
+
+}
+.btnstyle:hover
+{
+    opacity: 1;
+    -ms-transform: scale(1.05); /* IE 9 */
+    -webkit-transform: scale(1.05); /* Safari */
+    transform: scale(1.05);
+     -webkit-transition: opacity .5s,transform .5s;
+    transition: opacity .5s,transform .5s;
+}

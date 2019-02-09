@@ -1,0 +1,13 @@
+<div class='scrollbar'><div id='centerframe'><div style='color:#fdda19;font-size:44px'><pre>
+Javascript Design Pattern 
+ 
+有個 Hoisting 問題 -> 所有宣告在頂端被喚起
+ 
+依照 High Performance Javascript 內提到
+for 迴圈中盡量避免 var i= 0;i < Array.length;i++ 這種操作
+應使用 var i = 0 , max = Array.length ; i < max ; i ++ .
+把Array.length 存入 max -> cache
+可以加快code運作
+ 
+凡是應該重複利用的東西，應使用原形 -> prototype 才不會造成重複宣告在記憶體
+ 
