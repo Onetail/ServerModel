@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="statics/css/admin.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+	<meta charset="utf-8">
+</head>
+<body>
+<div ng-app = "posttest" ng-controller = "postController">
+        
+         <table>
+            <tr>
+               <th>文章id</th>
+               <th>發文者</th>
+               <th>標題</th>
+               <th>post</th>
+               <th>update</th>
+            </tr>
+         
+            <tr ng-repeat="post in posts">
+               <td>{{ post.id }}</td>
+               <td>{{ post.title }}</td>
+               <td>{{ post.info }}</td>
+               <td>{{ post.worktime }}</td>
+               <td>{{ post.tools }}</td>
+               <td>{{ post.app }}</td>
+               
+            </tr>
+         </table>
+</div>
+<script>
+          var app = angular.module('posttest', []);
+            app.controller('postController',function($scope,$http) {
+            $http.get("/ObjectModel/project/KWCFrame/get_portfolio").then( function(response) {
+               $scope.posts = response.data;
+            });
+         });
+         
+</script>
+</body>
+</html>
+<script type="text/javascript">
+	action_main = new function()
+	{
+		init_UI()
+		init_Feature()
+	}
+	function init_UI()
+	{
+		var top_frame = document.createElement("div")
+		var center_frame = document.createElement("div")
+		var bottom_frame = document.createElement("div")
+
+		top_frame.id = "top_frame"
+		center_frame.id = "center_frame"
+		bottom_frame.id = "bottom_frame"
+
+		document.body.appendChild(top_frame)
+		document.body.appendChild(center_frame)
+		document.body.appendChild(bottom_frame)
+
+		
+	}
+	function init_Feature()
+	{
+		document.getElementById("top_frame").innerHTML = TOP_UI()
+		document.getElementById("center_frame").innerHTML = CENTER_UI()
+		document.getElementById("bottom_frame").innerHTML = BOTTOM_UI()
+	}
+	//	top ui control
+	function TOP_UI(response = "")
+	{
+		response += "<div id='kwc_icon' style='text-align:center'>KWC後臺管理</div>"
+		return response
+	}
+	function CENTER_UI(response = "")
+	{
+		response += "<div class='btnstyle'>App</div>"
+		response += "<div class='btnstyle'>Web</div>"
+		response += "<div class='btnstyle'>Software</div>"
+		// response += "<div ng-app = 'posttest' ng-controller = 'postController'>"
+
+		return response
+	}
+	function BOTTOM_UI(response = "")
+	{
+		// response += "<hr style='margin-top:100px;'></hr>"
+		return response
+	}
+	
+</script>

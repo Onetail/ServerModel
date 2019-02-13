@@ -1,0 +1,310 @@
+<html>
+        <head>
+            <link rel="stylesheet" href="statics/css/font-awesome/css/font-awesome.min.css">
+            <link rel="stylesheet" href="statics/css/backstage.css">  
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>  
+        </head>
+        <body ng-app="backstage" ng-controller="backctrl">
+        <div class = "main">
+            <!-- <img src='statics/images/kwcpic_w.png' width = '75px' height = '75px' style='margin-top:-11px;position:fixed; left:10px; top:10px;'> -->
+            <div class = "header">
+                <p style='margin:0;'>KWC Studio Backstage Managment.</p>
+                <a href='./index.html' class = "home_btn"><i class="fa fa-home" aria-hidden="true"></i></a> 
+                </div>
+            <div class='contain'>
+            <div class = "leftview">
+                <div>
+                <div class = "button" ng-click="appclick()" ng-style="appStyle">
+                    <b><i class="fa fa-android" aria-hidden="true"></i></b>
+                </div>
+                <div class = "button" ng-click="softwareclick()" ng-style="softwareStyle">
+                    <b><i class="fa fa-windows" aria-hidden="true"></i></b>     
+                </div>
+                <div class = "button" ng-click="webclick()" ng-style="webStyle">
+                    <b><i class="fa fa-chrome" aria-hidden="true"></i></b> 
+                </div>
+                </div>
+                <i class = "fa fa-plus plus_btn" ng-click='form_add()' aria-hidden="true"></i>
+            </div>
+            <div class = "rightview">
+                <div class = "right_leftview">
+                    <p class = "typeselect">{{type}}</p>
+                    <p class = "item_list" ng-repeat="item in data">{{item.title}}<i class="fa fa-trash delete_btn" ng-click="delete_btn(item.id,item.type)" style='cursor:pointer;'aria-hidden="true"></i><i class="fa fa-pencil edit_btn" ng-click="edit_btn(item.id)" style='cursor:pointer;' aria-hidden="true"></i></p>
+                    
+                </div>
+                <div class = "right_rightview">
+                    <div class='form_info_group'>
+                        <p class='update_text' style='text-align:center'>ID:{{update_id}}</p> 
+                        <span class='update_text'>Title:</span> <input type="text" name="title" class='form_info' ng-model='update_title'><br>
+                        <span class='update_text'>Info:</span> <input type="text" name="info" class='form_info' ng-model='update_info'><br>
+                        <span class='update_text'>Worktime:</span> <input type="text" name="worktime" class='form_info' ng-model='update_worktime'><br>
+                        <span class='update_text'>Tools:</span> <input type="text" name="tools" class='form_info' ng-model='update_tools'><br>
+                        <span class='update_text'>Image Url:</span> <input type="text" name="url" class='form_info' ng-model='update_img_url'><br>
+                         <span class='update_text'>Type:</span>
+                            <div class='dropdown-button' ng-click="dropbtnClick()" ng-style="dropbtn">
+                                <div class='btnbtn'>{{update_type}}&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                <div class='dropdown-content'>
+                                    <a ng-click='SetType("app")'>APP</a>
+                                    <a ng-click='SetType("software")'>SoftWare</a>
+                                    <a ng-click='SetType("web")'>Web</a>
+                                </div>
+                            </div><!--<input type="text" name="type" class='form_info' ng-model='update_type'>--><br> 
+                    </div>
+                    <div class='form_btn_group'>
+                            <input type="button" name="cancel" value="Cancel" class='form_btn' ng-click='form_clear()'> 
+                            <input type="button" name="submit" value="Submit" class='form_btn' ng-click='form_submit()'>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+       <script>
+        var app = angular.module('backstage', []);
+            app.controller('backctrl', function($scope,$http) {   
+
+                function direct(domain = document.location.href){
+                    domain = domain.split('=')
+                    
+                    return domain[domain.length-1]
+                }
+                
+                $http.get("./get_portfolio?type=app").then(function(response){
+                        $scope.data = response.data;
+                    });
+                
+                    $scope.type = "APP";
+                    $scope.appStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.softwareStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.webStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                
+               
+                $scope.update_type = 'Select a type'
+
+                $scope.form_add = function(){
+                    $scope.update_id = 'new'
+                    $scope.update_title = '';
+                    $scope.update_info = '';
+                    $scope.update_worktime = '';
+                    $scope.update_tools = '';
+                    $scope.update_type = 'Select a type'
+                    $scope.update_img_url = '';
+                }
+
+                $scope.form_clear = function(){
+                        $scope.update_id = '';
+                        $scope.update_title = '';
+                        $scope.update_info = '';
+                        $scope.update_worktime = '';
+                        $scope.update_tools = '';
+                        $scope.update_type = 'Select a type'
+                        $scope.update_img_url = '';
+                }
+
+
+                $scope.form_submit = function(){
+                    var param = {   id : $scope.update_id,
+                                    title: $scope.update_title,
+                                    info: $scope.update_info,
+                                    worktime: $scope.update_worktime,
+                                    tools: $scope.update_tools,
+                                    type: $scope.update_type,
+                                    image_url: $scope.update_img_url          
+                                };
+                    $http.post("./update",param).then(function(response){
+                        var update_data = response.data;
+                        $scope.update_id = update_data.id;
+                        $scope.update_title = update_data.title;
+                        $scope.update_info = update_data.info;
+                        $scope.update_worktime = update_data.worktime;
+                        $scope.update_tools = update_data.tools;
+                        $scope.update_type = update_data.type;
+                        $scope.update_img_url = update_data.image_url;
+                if(update_data.type=='web'){
+                    $http.get("./get_portfolio?type=web").then(function(response){
+                        $scope.data = response.data;
+                    });
+                    $scope.type = "WEB";
+                    $scope.webStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.softwareStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.appStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                }
+                else if(update_data.type=='software'){
+                    $http.get("./get_portfolio?type=software").then(function(response){
+                        $scope.data = response.data;
+                    });
+                    $scope.type = "SoftWare";
+                    $scope.softwareStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.appStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.webStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                }
+                else{
+                    $http.get("./get_portfolio?type=app").then(function(response){
+                        $scope.data = response.data;
+                    });
+                
+                    $scope.type = "APP";
+                    $scope.appStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.softwareStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.webStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                }
+                refresh_Page()
+            });
+
+                }
+
+                $scope.delete_btn = function(item_id,item_type) {
+                    
+                    var param = {id:item_id}
+
+                    $http.post("./update_delete",param)
+
+                    if(item_type=='web'){
+                    $http.get("./get_portfolio?type=web").then(function(response){
+                        $scope.data = response.data;
+                    });
+                    $scope.type = "WEB";
+                    $scope.webStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.softwareStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.appStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                }
+                else if(item_type=='software'){
+                    $http.get("./get_portfolio?type=software").then(function(response){
+                        $scope.data = response.data;
+                    });
+                    $scope.type = "SoftWare";
+                    $scope.softwareStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.appStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.webStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                }
+                else if(item_type="app"){
+                    $http.get("./get_portfolio?type=app").then(function(response){
+                        $scope.data = response.data;
+                    });
+                
+                    $scope.type = "APP";
+                    $scope.appStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.softwareStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.webStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                }
+            
+                }
+
+                $scope.edit_btn = function(id) {
+                    $http.get("./works?ID="+id).then(function(response){
+                        var update_data = response.data;
+                        $scope.update_id = update_data.id;
+                        $scope.update_title = update_data.title;
+                        $scope.update_info = update_data.info;
+                        $scope.update_worktime = update_data.worktime;
+                        $scope.update_tools = update_data.tools;
+                        $scope.update_type = update_data.type;
+                        $scope.update_img_url = update_data.image_url;
+                    });
+            
+                }
+
+                $scope.SetType = function(type){
+                    $scope.update_type = type
+                    
+                }
+                         
+                $scope.appclick = function() {
+                    $http.get("./get_portfolio?type=app").then(function(response){
+                        $scope.data = response.data;
+                    });
+                
+                    $scope.type = "APP";
+                    $scope.appStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.softwareStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.webStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                
+                }
+
+                $scope.softwareclick = function() {
+                    $http.get("./get_portfolio?type=software").then(function(response){
+                        $scope.data = response.data;
+                    });
+                    $scope.type = "SoftWare";
+                    $scope.softwareStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.appStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.webStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                }
+
+                $scope.webclick = function() {
+                    $http.get("./get_portfolio?type=web").then(function(response){
+                        $scope.data = response.data;
+                    });
+                    $scope.type = "WEB";
+                    $scope.webStyle = {
+                        "background-color": "#603421","color": "white"
+                    }
+                    $scope.softwareStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    $scope.appStyle = {
+                        "background-color": "rgb(230, 230, 230)","color":"black"
+                    }
+                    
+                }
+        });
+
+       </script>
+    <!-- <div><input type="text" name="111" ><img src="pencil2.png" alt="111" style="width:30px;height:30px;"></div><br>
+    <div><input type="text" name="222"><img src="pencil2.png" alt="111" style="width:30px;height:30px;"></div><br>
+    <img src="img_logo_2870.jpg" alt="111" style="width:100px;height:100px;"> -->
+        </body>
+    </html>

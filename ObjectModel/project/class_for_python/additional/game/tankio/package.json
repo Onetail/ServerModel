@@ -1,0 +1,17 @@
+{
+  "name": "tankio",
+  "version": "1.0.0",
+  "description": "a socket.io game",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.3",
+    "socket.io": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "nothin",
+    "start": "node server.js"
+  },
+  "author": "nann wu",
+  "license": "ISC"
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KK Game</title>
+	<meta charset = "utf-8">
+	<link rel="stylesheet" type="text/css" href="assets/css/KKGame.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script type="text/javascript" src='assets/js/KKstart.js'></script>
+</head>
+<body>
+
+</body>
+</html>
+
+<script type="text/javascript">
+	Main_Action = new function()
+	{
+		//	create UI
+		UI_control();
+	}
+	function UI_control()
+	{
+		var top_frame = document.createElement("div");
+		var left_frame = document.createElement("div");
+		var center_frame = document.createElement("div");
+		var bottom_frame = document.createElement("div");
+
+		top_frame.id = "top_frame";
+		left_frame.id = "left_frame";
+		center_frame.id = "center_frame";
+		bottom_frame.id = "bottom_frame";
+
+		document.body.appendChild(top_frame);
+		document.body.appendChild(left_frame);
+		document.body.appendChild(center_frame);
+		document.body.appendChild(bottom_frame);
+		Draw_UI();
+	}
+	function Draw_UI()
+	{
+		document.getElementById("top_frame").innerHTML = "<img src='assets/images/KK_title.png' width='20%' height='20%'>";
+		document.getElementById("left_frame").innerHTML = "<div id='left_title'>擁有資訊</div><div id='left_hidden'></div>";
+		document.getElementById("center_frame").innerHTML = "<p id='center_border'><span id='center_screen'></span></p>";
+		document.getElementById("bottom_frame").innerHTML = "<hr>";
+		Game_draw();
+		Listener_Event();
+	}
+	function Game_draw()
+	{
+		document.getElementById("center_screen").innerHTML += "<div class='btnstyle' id='start_btn'>開始遊戲</div>";
+		document.getElementById("center_screen").innerHTML +="<div class='btnstyle' id='about_btn'>簡介</div>";
+	}
+	function Listener_Event()
+	{
+		var return_button;
+		left_title.onmouseover =()=>
+		{
+			left_hidden.style.marginLeft="0%";
+			left_hidden.style.transition="0.5s";
+		};
+		left_title.onmouseout = ()=>
+		{
+			left_hidden.style.marginLeft="-100%";
+			left_hidden.style.transition = "1s";
+		}
+		center_screen.style.marginLeft="15%";
+		center_screen.style.marginTop = "5%";
+
+		$('#start_btn').click(()=>
+		{
+			Game_slot_process();
+		});
+		return_button = document.createElement("div");
+		return_button.id="return_button";
+		document.body.appendChild(return_button);
+		$("#about_btn").click(()=>{
+					
+			$("#start_btn").hide(300,()=>{
+					
+					document.getElementById("return_button").innerHTML="<div id='abouttxt'>這是簡介呦~~~~</div><div class='btnstyle' style='background:#599abc;border-radius: 10%;margin-top:1%;margin-left:35%;' id='return_btn'>返回</div>";
+			
+					$('#about_btn').after(return_button);
+					$('#return_btn').click(()=>
+					{
+						$("#start_btn").show(300);
+						$('#return_btn').hide(300);
+						$('#abouttxt').hide(300);
+					});
+				});
+		});
+	}
+</script>

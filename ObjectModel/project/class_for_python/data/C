@@ -1,0 +1,5 @@
+<div class='scrollbar'><div id='centerframe'><div style='color:#fdda19;font-size:44px'><pre>
+extern -> 2個檔案共享variable 
+static func -> 外部不能呼叫 static variable 外部不能改值
+union -> 變數共享空間，大小看裏頭最大的byte型態 
+enum -> 宣告 

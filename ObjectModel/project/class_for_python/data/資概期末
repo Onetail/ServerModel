@@ -1,0 +1,51 @@
+<div class='scrollbar'><div id='centerframe'><div style='color:#ffaa39;font-size:48px'><pre>
+Quick sort 排序:
+-> 考排序方法 
+ 
+考演算法 Gready
+貪心法:  是一種在每一步選擇中都採取在當前狀態下最好或最優（即最有利）的選擇
+
+<img src="http://images.slideplayer.com/16/5012128/slides/slide_2.jpg" width="100%">
+
+
+給圖用 Prims 和 kruskal's 演算法畫出 Minimal Spanning 
+5%,10%,10%
+step by step 
+
+*Prims 是以增加節點的觀念做為出發點。
+ <img src="https://i.imgur.com/cKFdXKA.jpg" width="100%;">
+ <img src="https://i.imgur.com/hIt6Jvb.jpg" width="100%">
+ <img src="https://i.imgur.com/lPyZ9Is.jpg" width="100%">
+ <img src="https://i.imgur.com/SPLucFP.jpg" width="100%">
+
+*Kruskal 是以增加邊的觀念做為出發點。
+ <img src="https://i.imgur.com/s0dYQ3h.jpg" width="100%">
+ <img src="https://i.imgur.com/kuR2ZpJ.jpg" width="100%">
+ <img src="https://i.imgur.com/gz9nssq.jpg" width="100%">
+ <img src="https://i.imgur.com/U0rFxEZ.jpg" width="100%">
+
+
+(2) 演算法 Divide-and-Conquer
+Dynamic Programming 
+25%
+ 
+(3) 給一個數列，寫出Quick sort 陣列變化的過程
+15%
+給定一個基準數，
+從左比較(大)，從右比較(小)
+若指標未交叉，則2數互換
+
+ 
+(4) 物聯網 15%
+三軸加速器 
+-> 行車導航
+RFID 
+-> 門禁管制、停車場車輛管控系統、個人認證系統(電子錢包)
+
+ 
+(5) 已知布林代數 
+  > 用卡諾圖化簡
+  > 電路圖
+20%
+
+<img src="https://i.imgur.com/uo3H8D0.jpg" width="100%"> 
