@@ -7,12 +7,7 @@ const mysqldb = require(path.join(__dirname,global.Server.SERVERABSOLUTEPOSITION
 const mongodb = require(path.join(__dirname,global.Server.SERVERABSOLUTEPOSITION+"/Assets/database/mongoDB"))
 const socket = require(path.join(__dirname,global.Server.SERVERABSOLUTEPOSITION+"/Assets/socket/socket"))
 
-const myChicks = require(path.join(__dirname,"../project/myChicks/post"))
-const KWCFrame = require(path.join(__dirname,"../project/KWCFrame/post"))
-const Chatroom = require(path.join(__dirname,"../project/Chatroom/post"))
-const PythonClass = require(path.join(__dirname,"../project/PythonClass/post"))
-const WorkSchedule = require(path.join(__dirname,"../project/WorkSchedule/post"))
-
+const Test = require(path.join(__dirname,"../project/Test/post"))
 module.exports = {
     exec:(locatearray,app,indexarray)=>
     {
@@ -83,10 +78,6 @@ module.exports = {
         })
         
         // TODO: add your project 
-        myChicks.exec(app,mysqldb,mongodb,socket)
-        KWCFrame.exec(app,socket)
-        Chatroom.exec(app,socket)
-        PythonClass.exec(app,global)
-        WorkSchedule.exec(app,mongodb,socket)
+        Test.exec(app,mysqldb,mongodb,socket)
     }
 }
