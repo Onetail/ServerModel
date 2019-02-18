@@ -26,6 +26,11 @@ const http = require("http").createServer(app)
 const ios = require("socket.io")(https) // not finished
 const io = require("socket.io")(http) 
 
+var server = {
+    http : null ,
+    https : null 
+}
+
 
 module.exports = {
     exec:()=>
@@ -48,6 +53,7 @@ module.exports = {
         module.exports.postMethod(locatearray) 
 
         module.exports.getMethodDefaultPage()
+        
     },
     // to form use http get 
     getMethod: (locatearray,type)=> {type == 1 ? gm.exec(locatearray,app): gm.Atdomain(locatearray,app)},
@@ -72,7 +78,10 @@ module.exports = {
         
     },
     listen:()=>{
-        http.listen(global.Server.SERVERHTTPPORT,()=>{message.success(1,global.Server.SERVERHTTPPORT)})
-        https.listen(global.Server.SERVERHTTPSPORT,()=>{message.success(1,global.Server.SERVERHTTPSPORT)})
+        server.http = http.listen(global.Server.SERVERHTTPPORT,()=>{message.success(1,global.Server.SERVERHTTPPORT)})
+        server.https = https.listen(global.Server.SERVERHTTPSPORT,()=>{message.success(1,global.Server.SERVERHTTPSPORT)})
     },
+    close : ()=>{
+        process.exit(0);
+    }
 }
