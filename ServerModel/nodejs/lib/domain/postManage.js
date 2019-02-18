@@ -14,10 +14,10 @@ const PythonClass = require(path.join(__dirname,"../project/PythonClass/post"))
 const WorkSchedule = require(path.join(__dirname,"../project/WorkSchedule/post"))
 
 module.exports = {
-    exec:(locatearray,app,indexarray)=>
+    exec:(locatearray,app)=>
     {
         module.exports.domain(locatearray,app)
-        module.exports.Atdomain(indexarray,app)
+        module.exports.Atdomain(app)
     },
     domain:(locatearray,app)=>
     {
@@ -29,10 +29,18 @@ module.exports = {
         {
             let endlocate,
                 startlocate;
+
             endlocate = locatearray[i].split("/")[locatearray[i].split("/").length-1]
             startlocate = locatearray[i].slice(0,locatearray[i].length - locatearray[i].split("/")[locatearray[i].split("/").length-1].length)
-            locatearray[i] = locatearray[i].slice(5)
-            // message.message("test",locatearray[i])  
+
+            locatearray[i] = locatearray[i].split("/").splice(
+                locatearray[i].split("/").indexOf( 
+                    global.Server.SERVERLOCALE.slice(1, global.Server.SERVERLOCALE.length) 
+                ),
+                locatearray[i].split("/").length
+            ).join("/")
+            locatearray[i] = "/"+locatearray[i]
+
             switch(locatearray[i])
             {
                 case "/ObjectModel/project/LoginFrame/action.html":
@@ -50,23 +58,33 @@ module.exports = {
                         })
                     })    
                     break;
-
+                
+                // case "/test":
+                //     app.post("/test",(req,res)=>{
+                //         res.send("test")
+                //     })
+                //     break;
+                
+                case (locatearray[i].match(/test/) || {}).input:
                     
+                    break;
+
                 default :
                     message.message("remind","尚未處理的檔案 : "+locatearray[i])
             }
         }
+        return locatearray
     },
-    Atdomain:(indexarray,app)=>
+    Atdomain:(app)=>
     {
         // print how many project in ObjectModel/project 
-        app.post("/ObjectModel/Package",(req,res)=>
+        app.post(`${global.Server.SERVERLOCALE}/Package`,(req,res)=>
         {
             var value,
                 i,
                 data=[]
             
-            value = fs.readdirSync(path.join(__dirname,global.Server.SERVERABSOLUTEPOSITION+"/ObjectModel/project"))
+            value = fs.readdirSync(path.join(__dirname,global.Server.SERVERABSOLUTEPOSITION+global.Server.SERVERLOCALE+ global.Server.SERVERADDRESS))
             value.forEach((d)=>
             {
                 var gnore = false;
