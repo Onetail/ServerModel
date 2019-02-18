@@ -40,7 +40,7 @@ describe("PostManager",()=>{
             
         })
         it(`domain(["/test"],app)[0] == "/test"`,()=>{
-            expect(pm.domain(["/test"],app)[0]).to.equal("/test")
+            expect(pm.domain(["/test",""],app)[0]).to.equal("/test")
         })
         it(`domain(["dir/test"],app)[0] == "/test"`,()=>{
             expect(pm.domain(["dir/test"],app)[0]).to.equal("/test")
@@ -57,6 +57,14 @@ describe("PostManager",()=>{
             expect(
                 pm.domain([`/a${global.Server.SERVERLOCALE}/dir/test`],app)[0]
             ).to.equal(`${global.Server.SERVERLOCALE}/dir/test`)
+        })
+        it(`domain(["dir/test","/a${global.Server.SERVERLOCALE}/dir/test"],app) == "/test,${global.Server.SERVERLOCALE}/dir/test"`,()=>{
+            var string = "",
+                array = ["dir/test",`/a${global.Server.SERVERLOCALE}/dir/test`]
+                
+            expect(
+                pm.domain(array,app).toString()
+            ).to.equal(`/test,${global.Server.SERVERLOCALE}/dir/test`)
         })
     })
 
