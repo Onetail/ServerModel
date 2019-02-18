@@ -66,7 +66,9 @@ module.exports = {
                 //     break;
                 
                 case (locatearray[i].match(/test/) || {}).input:
-                    
+                    app.post("/test",(req,res)=>{
+                        res.send("test success!")
+                    })
                     break;
 
                 default :

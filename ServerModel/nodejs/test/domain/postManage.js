@@ -2,8 +2,6 @@ const chai = require("chai")
 const chaiHttp = require("chai-http")
 const path = require("path")
 
-var should = chai.should()
-var assert = chai.assert
 var expect = chai.expect
 
 const pm = require("../../lib/domain/postManage")
@@ -11,8 +9,6 @@ const global = require(path.join(__dirname,"../../../../Assets/global/Global"))
 
 const express = require("express")
 const http = require("http")
-const bodyparser = require("body-parser")
-
 
 // Test postManage and create test server
 describe("PostManager",()=>{
@@ -24,18 +20,23 @@ describe("PostManager",()=>{
         server = http.createServer(app)
         // server.listen(8501)
     })
-
     before(()=>{
         chai.use(chaiHttp)
     })
     
     after(()=>{
-        // server.close()
+        server.close()    
     });
     
     describe("post Domain",()=>{
         it(`domain(["test"],app)[0] == "/test" `,()=>{
+            
             expect(pm.domain(["test"],app)[0]).to.equal("/test")
+            chai.request(server)
+            .post("/test")
+            .end(function(err,res,body){
+                expect(200).to.equal(res.status)
+            })
             
         })
         it(`domain(["/test"],app)[0] == "/test"`,()=>{
