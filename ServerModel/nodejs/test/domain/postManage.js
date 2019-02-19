@@ -28,7 +28,7 @@ describe("PostManager",()=>{
         server.close()    
     });
     
-    describe("post Domain",()=>{
+    describe("#post Domain",()=>{
         it(`domain(["test"],app)[0] == "/test" `,()=>{
             
             expect(pm.domain(["test"],app)[0]).to.equal("/test")
@@ -68,7 +68,7 @@ describe("PostManager",()=>{
         })
     })
 
-    describe("AtDomain",()=>{
+    describe("#AtDomain",()=>{
         it(`Post Package test`,()=>{
             pm.Atdomain(app)
             chai.request(server)
