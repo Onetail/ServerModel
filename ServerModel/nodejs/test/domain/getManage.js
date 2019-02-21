@@ -18,7 +18,6 @@ describe(`getManage`,()=>{
     before(()=>{ 
         app = express()
         server = http.createServer(app)
-        // server.listen(8501)
         chai.use(chaiHttp)
     })
     
@@ -48,15 +47,35 @@ describe(`getManage`,()=>{
         })
     })
     describe(`#Atdomain`,()=>{
-        
+        describe(`\tApi `, ()=>{
+            it(`GET ${global.Server.SERVERLOCALE}${global.Server.SERVERADDRESS}/`,(done)=>{
+                gm.Atdomain(app)
+                chai.request(server)
+                .get(global.Server.SERVERLOCALE+global.Server.SERVERADDRESS+"/")
+                .end((err,res,body)=>{
+                    expect(200).to.equal(res.status)
+                    done()
+                })
+            })
+            it(`GET 金鑰 `,(done)=>{
+                gm.Atdomain(app)
+                chai.request(server)
+                .get("/.well-known/acme-challenge/2PstEktjN5T8R_JQwcOY_RrJ9Ki_asJhTpih7S-s04Y")
+                .end((err,res,body)=>{
+                    expect(200).to.equal(res.status)
+                    expect("2PstEktjN5T8R_JQwcOY_RrJ9Ki_asJhTpih7S-s04Y.AAdaTX30-mFwJx084cG_TUgiJsT_zXWpSX8QVPfBrVA").to.equal(res.text)
+                    done()
+                })
+            })
+        })
     })
     describe(`#defaultPage`,()=>{
-        it(`/*/ = 200 && res.body == undefined`,(done)=>{
+        it(`/*/ = 404 && res.body == undefined`,(done)=>{
             gm.defaultPage(app)
             chai.request(server)
             .get("/*")
             .end(function(err,res,body){
-                expect(200).to.equal(res.status)
+                expect(404).to.equal(res.status)
                 expect().to.equal(res.body.size)
                 done()
             })
