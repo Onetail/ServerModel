@@ -40,7 +40,7 @@ module.exports = {
         }
         return array
     },
-    Atdomain:(array,app)=>
+    Atdomain:(app)=>
     {
         // locate address 
         app.get(global.Server.SERVERLOCALE+global.Server.SERVERADDRESS+"/",(req,res)=>
@@ -58,7 +58,7 @@ module.exports = {
         
         app.get("*",(req,res)=>
         {
-            res.sendFile("default.html",{root:"../../Assets/default/"})
+            res.status(404).sendFile("default.html",{root:"../../Assets/default/"})
         })
     }
 }

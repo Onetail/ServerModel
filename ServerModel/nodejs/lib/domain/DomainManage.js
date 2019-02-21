@@ -56,7 +56,7 @@ module.exports = {
         
     },
     // to form use http get 
-    getMethod: (locatearray,type)=> {type == 1 ? gm.exec(locatearray,app): gm.Atdomain(locatearray,app)},
+    getMethod: (locatearray,type)=> {type == 1 ? gm.exec(locatearray,app): gm.Atdomain(app)},
     // to form use http post 
     postMethod:(locatearray)=> {pm.exec(locatearray,app)},
     getMethodDefaultPage:()=>{
