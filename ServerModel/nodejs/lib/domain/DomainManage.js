@@ -1,8 +1,6 @@
 const app = require("express")();
 
 const bodyparser = require("body-parser")
-const mysql  = require("mysql")
-const mongo = require("mongodb")
 const fs = require("fs")
 const path = require("path")
 
@@ -63,6 +61,9 @@ module.exports = {
         gm.defaultPage(app)    },
     databaseMethod: ()=>
     {
+        const mysql  = require("mysql"),
+             mongo = require("mongodb")
+             
         var mysql_connection , 
             mongo_connection
         mysqlDB.exec(mysql_connection,mysql)
