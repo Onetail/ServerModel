@@ -63,12 +63,8 @@ module.exports = {
     {
         const mysql  = require("mysql"),
              mongo = require("mongodb")
-             
-        var mysql_connection , 
-            mongo_connection
-        mysqlDB.exec(mysql_connection,mysql)
-        mysqlDB.setValue(mysql_connection)
 
+        mysqlDB.exec(mysql)
         mongoDB.exec(mongo)
     },
     socketMethod:()=>
