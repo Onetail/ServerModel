@@ -7,6 +7,7 @@ const mysqldb = require(path.join(__dirname,global.Server.SERVERABSOLUTEPOSITION
 const mongodb = require(path.join(__dirname,global.Server.SERVERABSOLUTEPOSITION+"/Assets/database/mongoDB"))
 const socket = require(path.join(__dirname,global.Server.SERVERABSOLUTEPOSITION+"/Assets/socket/socket"))
 
+const Test = require(path.join(__dirname,"../project/Test/post"))
 module.exports = {
     exec:(locatearray,app,indexarray)=>
     {
@@ -76,7 +77,7 @@ module.exports = {
             res.send(data)
         })
         
-
         // TODO: add your project 
+        Test.exec(app,mysqldb,mongodb,socket)
     }
 }

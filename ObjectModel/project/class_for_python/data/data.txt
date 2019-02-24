@@ -1,2 +1,0 @@
-
-<div class='scrollbar'><div id='centerframe'><table id='maintable' border='0' width='300px'><tr><td>UID</td><td>Name</td><td>Value</td></tr><tr><td>1</td><td>Root</td><td>1000</td></tr></table></div></div>
