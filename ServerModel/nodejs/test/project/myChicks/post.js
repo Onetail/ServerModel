@@ -10,25 +10,31 @@ const global = require(path.join(__dirname,"../../../../../Assets/global/Global"
 const express = require("express")
 const http = require("http")
 
-// test mysql mongo socket
-const mysqldb = require(path.join(__dirname,"../"+global.Server.SERVERABSOLUTEPOSITION+"/Assets/database/mysqlDB"))
+// test module
 const mongodb = require(path.join(__dirname,"../"+global.Server.SERVERABSOLUTEPOSITION+"/Assets/database/mongoDB"))
 
 
 describe(`myChicks Test`,()=>{
     var app , 
-        server ;
+        server,
+        mongo,
+        Collection_Name = "User_Detail",
+        Database_Name = "myChicks",
+        isPlacard = true
 
     before(()=>{ 
         app = express()
         server = http.createServer(app)
         chai.use(chaiHttp)
 
-        project.exec(app,mysqldb,mongodb)
+        mongo = mongodb.exec(mongo)
+        mongo = mongo.getValue()
+        project.exec({app:app,mongodb:mongodb})
     })
 
     describe(`#Post Method`,()=>{
-        it.skip(`POST ${global.Server.SERVERLOCALE}/UserRegister`,(done)=>{
+        it(`POST ${global.Server.SERVERLOCALE}/UserRegister`,(done)=>{
+            console.log(mongo.db(Database_Name).collection(Collection_Name).find({}))
             done()
         })
         it.skip(`POST ${global.Server.SERVERLOCALE}/UserCheckIsExist`,(done)=>{

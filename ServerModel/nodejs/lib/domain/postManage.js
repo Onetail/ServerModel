@@ -103,7 +103,7 @@ module.exports = {
         })
         
         // TODO: add your project 
-        myChicks.exec(app,mysqldb,mongodb,socket)
+        myChicks.exec({app,mysqldb,mongodb,socket})
         KWCFrame.exec(app,socket)
         Chatroom.exec(app,socket)
         PythonClass.exec(app,global)
