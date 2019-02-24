@@ -23,9 +23,9 @@ module.exports = {
 
         mongo.MongoClient.connect(`mongodb://${global.Database.DATABASEIP}:${global.Database.MONGOPORT}/`,{ useNewUrlParser: true },async (err,db)=>
         {
+            if(err) throw err
             await module.exports.setValue(db)
             await message.message("remind",`this is in mongoDB in ${value}`)
-            if(err) throw err
         })
     },
     getValue : ()=>{ return value;},
