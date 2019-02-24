@@ -65,11 +65,10 @@ module.exports = {
     {
         var mysql_connection , 
             mongo_connection
-        mysql_connection = mysqlDB.exec(mysql_connection,mysql)
+        mysqlDB.exec(mysql_connection,mysql)
         mysqlDB.setValue(mysql_connection)
 
-        mongo_connection = mongoDB.exec(mongo)
-        return mysql_connection,mongo_connection
+        mongoDB.exec(mongo)
     },
     socketMethod:()=>
     {
