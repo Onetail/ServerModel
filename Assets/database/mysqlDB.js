@@ -3,24 +3,25 @@ const message = require("../message/MessageActivity")
 
 var value = "";
 module.exports = {
-    exec : (connection,mysql)=>
+    exec : async (mysql)=>
     {
         try{
-            connection = module.exports.init(mysql)
-            module.exports.connect(connection)
+            connection = await module.exports.init(mysql)
+            await module.exports.connect(connection)
             message.success(2,global.Database.MYSQLDATABASENAME)
+            await module.exports.setValue(connection)
+            message.message("remind",`this is in mysqlDB in ${connection}`)
         }catch(err){
             message.error(2,err)   
         }  
-        return connection
     },
-    init : (mysql)=>
+    init : (mysql,database = global.Database.MYSQLDATABASENAME)=>
     {
         return mysql.createConnection({
             host: global.Database.DATABASEIP,
             user: global.Database.DATABASEUSER,
             password : global.Database.DATABASEPASSWORD,
-            database : global.Database.MYSQLDATABASENAME
+            database : database
         })
     },
     connect : (connection)=>{connection.connect((err)=>{if(err) throw err })},

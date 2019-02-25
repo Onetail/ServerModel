@@ -22,9 +22,10 @@ module.exports = {
                     gnore = true 
                 }
             }
-            
+
             // add gnore file in global for Http Get method
             if(!gnore){
+                
                 startlocate = array[i].slice(0,array[i].length - array[i].split("/")[array[i].split("/").length-1].length)
                 array[i] = encodeURI(array[i].slice(path.join(__dirname,global.Server.SERVERABSOLUTEPOSITION+"").length))
                 // message.message("run",array[i])
@@ -37,8 +38,9 @@ module.exports = {
                 }catch(err){message.error(1,err)}
             }
         }
+        return array
     },
-    Atdomain:(array,app)=>
+    Atdomain:(app)=>
     {
         // locate address 
         app.get(global.Server.SERVERLOCALE+global.Server.SERVERADDRESS+"/",(req,res)=>
@@ -48,15 +50,7 @@ module.exports = {
         // https address
         app.get("/.well-known/acme-challenge/2PstEktjN5T8R_JQwcOY_RrJ9Ki_asJhTpih7S-s04Y",(req,res)=>{
             res.send("2PstEktjN5T8R_JQwcOY_RrJ9Ki_asJhTpih7S-s04Y.AAdaTX30-mFwJx084cG_TUgiJsT_zXWpSX8QVPfBrVA")
-        })
-        // socket io 
-        // app.get("/socket.io/socket.io.js",(req,res)=>{
-        //     res.sendFile("socket.io.js",{root:"../../Assets/socket/"})
-        // })
-        // app.get("/socket.io/socket.io.js.map",(req,res)=>{
-        //     res.sendFile("socket.io.js.map",{root:"../../Assets/socket/"})
-        // })
-        
+        })        
     },
     defaultPage: (app)=>{
         
