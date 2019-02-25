@@ -64,7 +64,7 @@ module.exports = {
         
         app.get("*",(req,res)=>
         {
-            res.sendFile("default.html",{root:"../../Assets/default/"})
+            res.ststus(404).sendFile("default.html",{root:"../../Assets/default/"})
         })
     }
 }
