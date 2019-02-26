@@ -23,17 +23,11 @@ describe(`myChicks Test`,()=>{
         isPlacard = true
 
     before(()=>{ 
-        app = express()
-        server = http.createServer(app)
-        chai.use(chaiHttp)
-
-        mongo = mongodb.exec(mongo)
-        mongo = mongo.getValue()
-        project.exec({app:app,mongodb:mongodb})
+        
     })
 
     describe(`#Post Method`,()=>{
-        it(`POST ${global.Server.SERVERLOCALE}/UserRegister`,(done)=>{
+        it.skip(`POST ${global.Server.SERVERLOCALE}/UserRegister`,(done)=>{
             console.log(mongo.db(Database_Name).collection(Collection_Name).find({}))
             done()
         })
