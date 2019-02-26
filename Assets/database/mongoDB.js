@@ -9,7 +9,7 @@ module.exports = {
         module.exports.init(mongo)
         try{
             await module.exports.connect(mongo)
-            await message.success(2,`MongoDB Port ${global.Database.MONGOPORT}`)
+            message.success(2,`MongoDB Port ${global.Database.MONGOPORT}`)
         }catch(err){
             message.error(2,err)   
         }  
@@ -19,13 +19,13 @@ module.exports = {
     {
         return mongo
     },
-    connect : (mongo,method="")=>{
+    connect : async (mongo,method="")=>{
 
-        mongo.MongoClient.connect(`mongodb://${global.Database.DATABASEIP}:${global.Database.MONGOPORT}/`,{ useNewUrlParser: true },async (err,db)=>
+        await mongo.MongoClient.connect(`mongodb://${global.Database.DATABASEIP}:${global.Database.MONGOPORT}/`,{ useNewUrlParser: true },async (err,db)=>
         {
             if(err) throw err
             await module.exports.setValue(db)
-            await message.message("remind",`this is in mongoDB in ${value}`)
+            message.message("remind",`this is in mongoDB in ${value}`)
         })
     },
     getValue : ()=>{ return value;},
