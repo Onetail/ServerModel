@@ -1,11 +1,11 @@
 
 
 module.exports = {
-    exec: (app,mysqldb,mongodb,socket)=>
+    exec: ({app,mysqldb,mongodb,socket} = {})=>
     {
-        module.exports.Atdomain(app,mysqldb,mongodb,socket)
+        module.exports.Atdomain({app,mysqldb,mongodb,socket})
     },
-    Atdomain:(app,mysqldb,mongodb,socket)=>
+    Atdomain:({app,mysqldb,mongodb,socket} = {})=>
     {
         
         var Collection_Name = "User_Detail"
