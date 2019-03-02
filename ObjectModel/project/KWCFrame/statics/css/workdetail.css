@@ -1,0 +1,27 @@
+.main{
+    display: block;
+}
+.detaillist{
+    list-style-type: none;
+}
+.header{
+    font-size: 30px;
+    width:100vw;
+    height:20%;
+    padding-top:5%;
+    padding-left: 10%;
+    color:#004080;
+}
+.detail{
+    padding-left: 30%;
+    font-size: 30px;
+    margin-bottom:10%;
+    
+}
+/*
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;*/

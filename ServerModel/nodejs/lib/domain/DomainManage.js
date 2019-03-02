@@ -1,8 +1,6 @@
 const app = require("express")();
 
 const bodyparser = require("body-parser")
-const mysql  = require("mysql")
-const mongo = require("mongodb")
 const fs = require("fs")
 const path = require("path")
 
@@ -26,6 +24,11 @@ const http = require("http").createServer(app)
 const ios = require("socket.io")(https) // not finished
 const io = require("socket.io")(http) 
 
+var server = {
+    http : null ,
+    https : null 
+}
+
 
 module.exports = {
     exec:()=>
@@ -48,22 +51,21 @@ module.exports = {
         module.exports.postMethod(locatearray) 
 
         module.exports.getMethodDefaultPage()
+        
     },
     // to form use http get 
-    getMethod: (locatearray,type)=> {type == 1 ? gm.exec(locatearray,app): gm.Atdomain(locatearray,app)},
+    getMethod: (locatearray,type)=> {type == 1 ? gm.exec(locatearray,app): gm.Atdomain(app)},
     // to form use http post 
     postMethod:(locatearray)=> {pm.exec(locatearray,app)},
     getMethodDefaultPage:()=>{
         gm.defaultPage(app)    },
     databaseMethod: ()=>
     {
-        var mysql_connection , 
-            mongo_connection
-        mysql_connection = mysqlDB.exec(mysql_connection,mysql)
-        mysqlDB.setValue(mysql_connection)
+        const mysql  = require("mysql"),
+             mongo = require("mongodb")
 
-        mongo_connection = mongoDB.exec(mongo)
-        return mysql_connection,mongo_connection
+        mysqlDB.exec(mysql)
+        mongoDB.exec(mongo)
     },
     socketMethod:()=>
     {
@@ -72,7 +74,10 @@ module.exports = {
         
     },
     listen:()=>{
-        http.listen(global.Server.SERVERHTTPPORT,()=>{message.success(1,global.Server.SERVERHTTPPORT)})
-        https.listen(global.Server.SERVERHTTPSPORT,()=>{message.success(1,global.Server.SERVERHTTPSPORT)})
+        server.http = http.listen(global.Server.SERVERHTTPPORT,()=>{message.success(1,global.Server.SERVERHTTPPORT)})
+        server.https = https.listen(global.Server.SERVERHTTPSPORT,()=>{message.success(1,global.Server.SERVERHTTPSPORT)})
     },
+    close : ()=>{
+        process.exit(0);
+    }
 }

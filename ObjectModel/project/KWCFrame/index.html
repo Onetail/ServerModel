@@ -1,0 +1,187 @@
+<html>
+
+<head>
+    <title>KWC Studio</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="statics/css/homepage.css">
+    <link rel="stylesheet" type="text/css" href="statics/css/workspage.css">
+    <link rel="shortcut icon" href="statics/favicon.ico"/>
+    <link rel="stylesheet" href="statics/css/font-awesome/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    </head>
+<body ng-app="homepage" ng-controller="homectrl" >
+    <div>
+        <div class='bg bg-blur'></div>
+        <div id ="main_div" class='main_div'>
+           
+            <div id="UI_design">
+                <div class='headerbar'>
+                    <div class='loginbtn' ><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;登入</div>
+                </div>
+                <div class='title'><b><p>KWC 工作室</p></b></div>
+                <div class='intro'><br/><p>KWC工作室,負責滿足您的軟體需求,歡迎來信詢問.</p></div>
+                    <div class='links' id='links'>
+                        <div id='writetxt' style="display:none"></div><div id='collections'>作品一覽</div><div id='contact'><!-- <a href='mailto:tstckwc@icloud.com'> -->聯繫我們<!-- </a> --></div>
+                    </div>
+            </div>
+            <div class='loginbg bg-blur'  style="display:none" ></div>   
+                <div class='loginpage' style="display:none" > 
+                    <div style='width:100%;height:10%;position:absolute;left:0;top:0;font-size:60px;'><i class="fa fa-times login_disappear" style='color:#258ac9;float:right;margin:5%;cursor:pointer;'aria-hidden="true"></i></div>
+                    <form action = '/ObjectModel/project/KWCFrame/login' method='POST' class='loginstyle'>
+                    <div style='width:100%;color:#258AC9;font-size:40px;text-align:center;margin-top:-10%;'>管理者登入</div>
+                    <div style='width:100%;display:flex;align-items:center;justify-content:center;flex-direction: column;margin-top:5%;'>
+                    <input type='text' name ='username' placeholder="帳號" class='logintext'>
+                    <input type='password' name = 'password' placeholder="密碼" class='logintext'>
+                    <div class='loginerror' style='color:red;display:none;'>登入失敗：請再次確認帳號密碼</div>
+                    </div>
+                    <input type='submit' value='確認' class='login_ctrl_btn'>
+                    
+                </form>
+                </div>
+        </div>
+        
+    </div>
+    </body>
+    
+</html>
+<script type="text/javascript">
+    Main_Action = new function()
+    {
+        // Event
+        Control_Event();
+    }
+    //  聯繫
+    function Control_Event()
+    {
+        
+        $("div#contact").click(function()
+        {
+            
+            document.getElementById('writetxt').innerHTML="<textarea id='txtarea' placeholder='請記得附上聯繫方式喔!'></textarea>";
+
+            $('div#collections').fadeOut(50);
+            $('div.intro').fadeOut(50);
+            $('div#contact').fadeOut(50,function()
+                {
+                    $('div#writetxt').fadeIn(50);
+                    $('div#writetxt').animate(
+                    {
+                        height:'30vw',
+                        width:'60vw'
+                    },400,function()
+                    {
+                        var reback = document.createElement('div');
+                        var send = document.createElement('div');
+                        reback.id='reback';
+                        send.id='send';
+                        reback.innerHTML ="<button id='btn_back' class='btnstyle' style='display:none;border:0;'>返回</button>";
+                        send.innerHTML="<button id='btn_send' class='btnstyle' style='display:none;border:0;'>傳送 </button>";
+                        $('div#writetxt').after(reback,send);
+                        $('button#btn_send').fadeIn(50);
+                        $('button#btn_back').fadeIn(50);
+                        // 聯繫send
+                        $('button#btn_send').click(function()
+                        {
+                            var socket = io();
+                            // alert($('#txtarea').val());
+                            socket.emit("send",$('#txtarea').val());
+                            socket.on("response",function(msg)
+                            {
+                                if(msg=="OK")
+                                {
+                                    $('#send').fadeOut(300);
+                                    // $('#writetxt').fadeOut(500);
+                                    alert("感謝您的詢問,已收到您的訊息!我們會盡快回復");
+                                    $('#reback').animate(
+                                        {
+                                            left:'250px'
+                                        },1500,function()
+                                    {
+                                        $('#send').remove();
+                                        $('#send').remove();
+                                        $('#reback').remove();
+                                        $('#txtarea').val("");
+                                        $('#writetxt').hide(300);
+                                        $('#writetxt').animate(
+                                        {
+                                        height:'10vw'
+                                        },500);
+                                        $('div#collections').show(400);
+                                        $('div#contact').show(400);
+                                    });
+                                }
+				                else if(msg=="ERROR")
+				{
+				    alert("Opps!好像出了點狀況,請稍後再試一次,或請聯繫:ultralcc@icloud.com");
+				}else{alert("Opps!好像出了點狀況,請稍後再試一次,或請聯繫:ultralcc@icloud.com")}
+                            });
+
+                        });
+                        //  返回back
+                        $('button#btn_back').click(function()
+                        {
+                            $('#send').remove();
+                            $('#reback').remove();
+                            $('#txtarea').val("");
+                            $('#writetxt').hide(300);
+                            $('#writetxt').animate(
+                            {
+                                height:'10vw'
+                            },500);
+                            $('div#collections').show(400);
+                            $('div#contact').show(400);
+                            $('div.intro').fadeIn(400);
+                        });
+                        // $('#txtarea').keydown(function(event)
+                        // {
+                        //     if(event.which == 13)
+                        //     {   
+                        //         $('#btn_send').click();
+                        //     }
+                        // });
+
+                    })
+                    
+                });
+            
+            
+
+        });
+      
+        $('.loginbtn').click(()=>{
+            $('.loginbg').fadeIn(0);
+            $('.loginpage').fadeIn(0);
+        });
+        $('.login_disappear').click(()=>{
+            $('.loginbg').fadeOut(0);
+            $('.loginpage').fadeOut(0);
+        });
+    }
+
+   ////////Angular js scripts///////////
+
+            var app = angular.module('homepage', []);
+            app.controller('homectrl', function($scope,$http,$location) {
+                $scope.show_or_not =  true;
+                function id(domain = document.location.href){
+                    domain = domain.split('=')
+                    return domain[domain.length-1]
+                }
+                if(id() == 'login_fail')
+                {
+                    console.log(id())
+                    $('.loginbg').fadeIn(0);
+                    $('.loginpage').fadeIn(0);
+                    $('.loginerror').fadeIn(0);
+
+                }
+            
+            });
+           
+         
+</script>
+<script type="text/javascript" src="statics/js/KWCworks.js"></script>
+<script type="text/javascript" src="statics/js/method.js"></script>
+<script type="text/javascript" src="statics/js/backstage.js"></script>
