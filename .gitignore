@@ -9,8 +9,23 @@
 
 node_modules/
 
+BackStage/ 
 
 # project name 
 
+<<<<<<< HEAD
 # GSC google search console 
 GSC/
+=======
+ADB/
+Chatroom/ 
+class_for_python/
+Docker/
+GameFrame/
+JSDesignPattern/
+KWCFrame/
+LoginFrame/
+myChicks/
+PythonClass/
+WorkSchedule/
+>>>>>>> bf9d4b271cb96ef51e6413127e509444910f1baf
