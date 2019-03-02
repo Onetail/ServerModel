@@ -13,10 +13,10 @@ BackStage/
 
 # project name 
 
-<<<<<<< HEAD
+
 # GSC google search console 
 GSC/
-=======
+
 ADB/
 Chatroom/ 
 class_for_python/
@@ -28,4 +28,4 @@ LoginFrame/
 myChicks/
 PythonClass/
 WorkSchedule/
->>>>>>> bf9d4b271cb96ef51e6413127e509444910f1baf
+
