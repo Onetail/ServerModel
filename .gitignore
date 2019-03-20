@@ -15,4 +15,7 @@ BackStage/
 # GSC google search console 
 GSC/
 
+# lock 
+*.lock
 
+package-lock.json

@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  mysql:
+    build: 
+      context: .
+      dockerfile: docker/mysql/Dockerfile
+    command: mysqld --default-authentication-plugin=mysql_native_password --sql_mode=""
+    ports:
+      - "3307:3306"
+    networks:
+      - backend
+  mongo:
+    build:
+      context: . 
+      dockerfile: docker/mongo/Dockerfile
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+  nodejs:
+    build: 
+      context: .
+      dockerfile: docker/nodejs/Dockerfile
+    environment:
+      - MYSQL_DATABASE=ServerModel
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_PORT=3306
+      - MONGO_HOST=mongo
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    # volumes:
+    #   - $PWD/model:/app/model
+    #   - $PWD/config.toml:/app/config.toml
+    #   - $PWD/main.go:/ServerModel/
+    ports:
+      - "8501:8501"
+    entrypoint: /entrypoint.sh -d mysql:3306 -c 'yarn test';
+    links: 
+      - mysql
+      - mongo
+    networks:
+      - backend
+networks:
+  backend:
