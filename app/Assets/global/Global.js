@@ -11,10 +11,10 @@ module.exports = {
     INDEXFILE : "index.html",
     
     Database: {
-        MYSQLDATABASEIP : process.env.MYSQL_HOS || "127.0.0.1",
-        MONGODATABASEIP : "127.0.0.1",
+        MYSQLDATABASEIP : process.env.MYSQL_HOST || "127.0.0.1" ,
+        MONGODATABASEIP : process.env.MONGO_HOST || "127.0.0.1" ,
         DATABASEUSER : "root" , 
-        DATABASEPASSWORD : "",
+        DATABASEPASSWORD : process.env.MYSQL_ROOT_PASSWORD  || "root",
         MYSQLDATABASENAME : "ServerModel",
         MONGOPORT : 27017,
     },

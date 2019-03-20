@@ -18,7 +18,7 @@ module.exports = {
     init : (mysql,database = global.Database.MYSQLDATABASENAME)=>
     {
         return mysql.createConnection({
-            host: global.Database.DATABASEIP,
+            host: global.Database.MYSQLDATABASEIP,
             user: global.Database.DATABASEUSER,
             password : global.Database.DATABASEPASSWORD,
             database : database

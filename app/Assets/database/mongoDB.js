@@ -21,7 +21,7 @@ module.exports = {
     },
     connect : async (mongo,method="")=>{
 
-        await mongo.MongoClient.connect(`mongodb://${global.Database.DATABASEIP}:${global.Database.MONGOPORT}/`,{ useNewUrlParser: true },async (err,db)=>
+        await mongo.MongoClient.connect(`mongodb://${global.Database.MONGODATABASEIP}:${global.Database.MONGOPORT}/`,{ useNewUrlParser: true },async (err,db)=>
         {
             if(err) throw err
             await module.exports.setValue(db)
