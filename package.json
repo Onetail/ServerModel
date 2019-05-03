@@ -8,8 +8,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "cd ./app/ServerModel/nodejs/ && mocha --recursive",
+    "start": "cd ./app/ServerModel/nodejs/ && node server.js",
+    "serve": "cd ./app/ServerModel/nodejs/ && node server.js"
   },
   "author": "",
   "license": "ISC",
